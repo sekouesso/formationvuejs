@@ -11,7 +11,12 @@ const post = ref({
 const props = defineProps(['posts'])
 let index = ref(0);
 function onSubmit(){
-    index = props.posts[props.posts.length - 1].id+1;
+    if(props.posts.length===0){
+        index = 1;
+    }else{
+
+        index = props.posts[props.posts.length - 1].id+1;
+    }
     console.log(props.posts);
     post.value.id = index;
     //  post.value.id = Math.floor(Math.random()*100) +9
