@@ -66,7 +66,7 @@ function onSubmit(){
                             </div>
                             
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Soumettre</button>
+                                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Soumettre</button>
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                             </div>
                         </form>
