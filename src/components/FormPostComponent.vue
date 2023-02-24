@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-
+import { computed, ref, watch } from 'vue';
+defineEmits(['envoi'])
 const title = ref("Titre par défaut")
 const text = ref("Text par défaut")
 const post = ref({
@@ -27,6 +27,18 @@ function onSubmit(){
     post.value = {}
     //  console.log(posts.value)
 }
+
+const validTitle = computed(()=>post.value.title.length>=5)
+const validText = computed(()=>post.value.text.length>=5)
+
+ watch(()=>post.value,(newPost,oldPost) => {
+    // if(newTitle.indexOf(' ') > -1){
+    //     post.value.title = post.value.title.replace(' ','-')
+    // }
+    console.log(newPost.title);
+    console.log("test");
+})
+
 </script>
 
 <template>
@@ -53,20 +65,25 @@ function onSubmit(){
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form @submit.prevent="onSubmit">
+                        <form @submit.prevent="$emit('envoi',post.title,post.text)">
                             <div class="mb-3 mt-3">
                                 <label for="title" class="form-label">Title:</label>
                                 <input v-model="post.title" type="text" class="form-control" id="title"
                                     placeholder="Enter title" name="title">
+                                <small class="text-success" v-if="validTitle">valid</small>
+                                <small class="text-danger" v-else>Ce champ est requis. au moins 5 caractere</small>
+                                
                             </div>
                             <div class="mb-3">
                                 <label for="text" class="form-label">Texte du post:</label>
                                 <textarea v-model="post.text" class="form-control" id="text" placeholder="Enter text"
                                     name="text"></textarea>
+                                    <small class="text-success" v-if="validText">valid</small>
+                                <small class="text-danger" v-else>Ce champ est requis. au moins 5 caractere</small>
                             </div>
                             
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Soumettre</button>
+                                <button v-if="validText && validTitle" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Soumettre</button>
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                             </div>
                         </form>

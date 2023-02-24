@@ -1,4 +1,5 @@
 <script setup>
+  defineProps(['nbrPosts'])
 </script>
 
 <template>
@@ -38,6 +39,12 @@
     </div>
   </div>
 </nav>
+<div class="mt-4 p-5 bg-primary text-white rounded">
+      <h1>Bienvenu dans mon blog</h1>
+     <h2 class="btn btn-outline-light">
+      Le nombre de posts est: <span class="badge bg-info">{{ nbrPosts }}</span>
+     </h2>
+    </div>
 </template>
 
 <style scoped>
